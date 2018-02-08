@@ -691,7 +691,7 @@ NAN_METHOD(yescrypt) {
 */
 
 void init(v8::Local<v8::Object> target) {
-    NODE_SET_METHOD(target, "argon2", argon2_hash);
+    NODE_SET_METHOD(target, "argon2_hash", argon2);
     /*
     NODE_SET_METHOD(target, "boolberry", boolberry);
     NODE_SET_METHOD(target, "cryptonight", cryptonight);
