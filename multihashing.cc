@@ -5,43 +5,79 @@
 #include "nan.h"
 
 extern "C" {
+    /*
     #include "argon2.h"
+    #include "argon2a.h"
+    #include "bastion.h"
     #include "bcrypt.h"
+    #include "bitcore.h"
     #include "blake.h"
+    #include "blake2.h"
+    #include "blakecoin.h"
+    #include "bmw.h"
+    #include "boolberry.h"
     #include "c11.h"
     #include "cryptonight.h"
     #include "dcrypt.h"
+    #include "deep.h"
+    #include "drop.h"
     #include "fresh.h"
     #include "fugue.h"
+    #include "gost.h"
     #include "groestl.h"
     #include "hefty1.h"
-    #include "jh.h"
+    #include "hive.h"
+    #include "hmq17.h"
+    #include "hsr14.h"
+    #include "jha.h"
     #include "keccak.h"
+    #include "lbry.h"
+    #include "luffa.h"
     #include "lyra2.h"
     #include "lyra2re.h"
+    #include "lyra2v2.h"
     #include "lyra2z.h"
+    #include "m7m.h"
     #include "neoscrypt.h"
     #include "nist5.h"
+    #include "pentablake.h"
+    #include "phi.h"
+    #include "polytimos.h"
+    #include "pomelo.h"
     #include "quark.h"
     #include "qubit.h"
     #include "s3.h"
     #include "scryptjane.h"
     #include "scryptn.h"
     #include "sha1.h"
+    #include "sha256.h"
+    #include "sha256_Y.h"
+    #include "sha256t.h"
     #include "shavite3.h"
+    #include "sib.h"
     #include "skein.h"
+    #include "skein2.h"
+    #include "skunk.h"
+    #include "sm3.h"
     #include "Sponge.h"
+    #include "timetravel.h"
     #include "tribus.h"
+    #include "veltor.h"
+    #include "velvet.h"
+    #include "whirlpool.h"
     #include "whirlpoolx.h"
-    #include "x5.h"
     #include "x11.h"
+    #include "x11evo.h"
     #include "x11ghost.h"
     #include "x13.h"
     #include "x14.h"
     #include "x15.h"
+    #include "x16r.h"
+    #include "x17.h"
+    #include "xevan.h"
+    #include "yescrypt.h"
     #include "zr5.h"
-    #include "yescrypt/yescrypt.h"
-    #include "yescrypt/sha256_Y.h"
+    */
 }
 
 #include "boolberry.h"
@@ -51,6 +87,33 @@ extern "C" {
 
 using namespace node;
 using namespace v8;
+
+/*
+void neoscrypt(const v8::FunctionCallbackInfo<v8::Value>& args) {
+   v8::Isolate* isolate = args.GetIsolate();
+
+   if (args.Length() < 2) {
+       isolate->ThrowException(Exception::TypeError(String::NewFromUtf8(isolate, "Wrong number of arguments")));
+       return;
+   }
+
+   Local<Object> target = args[0]->ToObject();
+
+   if(!Buffer::HasInstance(target)) {
+       isolate->ThrowException(Exception::TypeError(String::NewFromUtf8(isolate,"Argument should be a buffer object.")));
+       return;
+   }
+
+   char * input = Buffer::Data(target);
+   char output[32];
+
+    //uint32_t input_len = Buffer::Length(target);
+
+   neoscrypt(input, output, 0);
+
+   v8::Local<v8::Value> returnValue = Nan::CopyBuffer(output, 32).ToLocalChecked();
+   args.GetReturnValue().Set(returnValue);
+}
 
 NAN_METHOD(lyra2rev2) {
 
@@ -87,26 +150,7 @@ NAN_METHOD(lyra2z) {
 
     uint32_t input_len = Buffer::Length(target);
 
-    lyra2z_hash(input, output);
-
-    info.GetReturnValue().Set(Nan::NewBuffer(output, 32).ToLocalChecked());
-}
-
-NAN_METHOD(neoscrypt_hash) {
-
-    if (info.Length() < 2)
-        return THROW_ERROR_EXCEPTION("You must provide two arguments.");
-
-    Local<Object> target = Nan::To<Object>(info[0]).ToLocalChecked();
-
-    if(!Buffer::HasInstance(target))
-        return THROW_ERROR_EXCEPTION("Argument should be a buffer object.");
-char * input = Buffer::Data(target);
-    char output[32];
-
-    uint32_t input_len = Buffer::Length(target);
-
-    neoscrypt(input, output, 0);
+    lyra2z_hash(input, output, 0);
 
     info.GetReturnValue().Set(Nan::NewBuffer(output, 32).ToLocalChecked());
 }
@@ -322,7 +366,7 @@ NAN_METHOD(keccak) {
 
     unsigned int dSize = Buffer::Length(target);
 
-    keccak_hash(input, output, dSize);
+    keccak256_hash(input, output, dSize);
 
     info.GetReturnValue().Set(Nan::NewBuffer(output, 32).ToLocalChecked());
 }
@@ -612,40 +656,43 @@ NAN_METHOD(yescrypt) {
     char * input = Buffer::Data(target);
     char *output = (char*) malloc(sizeof(char) * 32);
 
-    yescrypt_hash(input, output);
+    yescrypt_hash(input, output, 0);
 
     info.GetReturnValue().Set(Nan::NewBuffer(output, 32).ToLocalChecked());
 
 }
 
+*/
 
-NAN_MODULE_INIT(init) {
-    Nan::Set(target, Nan::New("lyra2z").ToLocalChecked(), Nan::GetFunction(Nan::New<FunctionTemplate>(lyra2z)).ToLocalChecked());
-    Nan::Set(target, Nan::New("lyra2rev2").ToLocalChecked(), Nan::GetFunction(Nan::New<FunctionTemplate>(lyra2rev2)).ToLocalChecked());
-    Nan::Set(target, Nan::New("quark").ToLocalChecked(), Nan::GetFunction(Nan::New<FunctionTemplate>(quark)).ToLocalChecked());
-    Nan::Set(target, Nan::New("x11").ToLocalChecked(), Nan::GetFunction(Nan::New<FunctionTemplate>(x11)).ToLocalChecked());
-    Nan::Set(target, Nan::New("scrypt").ToLocalChecked(), Nan::GetFunction(Nan::New<FunctionTemplate>(scrypt)).ToLocalChecked());
-    Nan::Set(target, Nan::New("scryptn").ToLocalChecked(), Nan::GetFunction(Nan::New<FunctionTemplate>(scryptn)).ToLocalChecked());
-    Nan::Set(target, Nan::New("scryptjane").ToLocalChecked(), Nan::GetFunction(Nan::New<FunctionTemplate>(scryptjane)).ToLocalChecked());
-    Nan::Set(target, Nan::New("keccak").ToLocalChecked(), Nan::GetFunction(Nan::New<FunctionTemplate>(keccak)).ToLocalChecked());
-    Nan::Set(target, Nan::New("bcrypt").ToLocalChecked(), Nan::GetFunction(Nan::New<FunctionTemplate>(bcrypt)).ToLocalChecked());
-    Nan::Set(target, Nan::New("skein").ToLocalChecked(), Nan::GetFunction(Nan::New<FunctionTemplate>(skein)).ToLocalChecked());
-    Nan::Set(target, Nan::New("groestl").ToLocalChecked(), Nan::GetFunction(Nan::New<FunctionTemplate>(groestl)).ToLocalChecked());
-    Nan::Set(target, Nan::New("groestlmyriad").ToLocalChecked(), Nan::GetFunction(Nan::New<FunctionTemplate>(groestlmyriad)).ToLocalChecked());
-    Nan::Set(target, Nan::New("blake").ToLocalChecked(), Nan::GetFunction(Nan::New<FunctionTemplate>(blake)).ToLocalChecked());
-    Nan::Set(target, Nan::New("fugue").ToLocalChecked(), Nan::GetFunction(Nan::New<FunctionTemplate>(fugue)).ToLocalChecked());
-    Nan::Set(target, Nan::New("qubit").ToLocalChecked(), Nan::GetFunction(Nan::New<FunctionTemplate>(qubit)).ToLocalChecked());
-    Nan::Set(target, Nan::New("hefty1").ToLocalChecked(), Nan::GetFunction(Nan::New<FunctionTemplate>(hefty1)).ToLocalChecked());
-    Nan::Set(target, Nan::New("shavite3").ToLocalChecked(), Nan::GetFunction(Nan::New<FunctionTemplate>(shavite3)).ToLocalChecked());
-    Nan::Set(target, Nan::New("cryptonight").ToLocalChecked(), Nan::GetFunction(Nan::New<FunctionTemplate>(cryptonight)).ToLocalChecked());
-    Nan::Set(target, Nan::New("x13").ToLocalChecked(), Nan::GetFunction(Nan::New<FunctionTemplate>(x13)).ToLocalChecked());
-    Nan::Set(target, Nan::New("boolberry").ToLocalChecked(), Nan::GetFunction(Nan::New<FunctionTemplate>(boolberry)).ToLocalChecked());
-    Nan::Set(target, Nan::New("nist5").ToLocalChecked(), Nan::GetFunction(Nan::New<FunctionTemplate>(nist5)).ToLocalChecked());
-    Nan::Set(target, Nan::New("sha1").ToLocalChecked(), Nan::GetFunction(Nan::New<FunctionTemplate>(sha1)).ToLocalChecked());
-    Nan::Set(target, Nan::New("x15").ToLocalChecked(), Nan::GetFunction(Nan::New<FunctionTemplate>(x15)).ToLocalChecked());
-    Nan::Set(target, Nan::New("fresh").ToLocalChecked(), Nan::GetFunction(Nan::New<FunctionTemplate>(fresh)).ToLocalChecked());
-    Nan::Set(target, Nan::New("neoscrypt").ToLocalChecked(), Nan::GetFunction(Nan::New<FunctionTemplate>(neoscrypt_hash)).ToLocalChecked());
-    Nan::Set(target, Nan::New("yescrypt").ToLocalChecked(), Nan::GetFunction(Nan::New<FunctionTemplate>(yescrypt)).ToLocalChecked());
+void init(v8::Local<v8::Object> target) {
+    /*
+    NODE_SET_METHOD(target, "boolberry", boolberry);
+    NODE_SET_METHOD(target, "cryptonight", cryptonight);
+    NODE_SET_METHOD(target, "fresh", fresh);
+    NODE_SET_METHOD(target, "neoscrypt", neoscrypt);
+    NODE_SET_METHOD(target, "nist5", nist5);
+    NODE_SET_METHOD(target, "sha1", sha1);
+    NODE_SET_METHOD(target, "shavite3", shavite3);
+    NODE_SET_METHOD(target, "x13", x13);
+    NODE_SET_METHOD(target, "x15", x15);
+    NODE_SET_METHOD(target, "yescrypt", yescrypt);
+    NODE_SET_METHOD(target, "hefty1", hefty1);
+    NODE_SET_METHOD(target, "qubit", qubit);
+    NODE_SET_METHOD(target, "fugue", fugue);
+    NODE_SET_METHOD(target, "blake", blake);
+    NODE_SET_METHOD(target, "groestl", groestl);
+    NODE_SET_METHOD(target, "skein", skein);
+    NODE_SET_METHOD(target, "bcrypt", bcrypt);
+    NODE_SET_METHOD(target, "groestlmyriad", groestlmyriad);
+    NODE_SET_METHOD(target, "keccak", keccak);
+    NODE_SET_METHOD(target, "scryptjane", scryptjane);
+    NODE_SET_METHOD(target, "scryptn", scryptn);
+    NODE_SET_METHOD(target, "scrypt", scrypt);
+    NODE_SET_METHOD(target, "x11", x11);
+    NODE_SET_METHOD(target, "quark", quark);
+    NODE_SET_METHOD(target, "lyra2rev2", lyra2rev2);
+    NODE_SET_METHOD(target, "lyra2z", lyra2z);
+    */
 }
 
 NODE_MODULE(multihashing, init)
