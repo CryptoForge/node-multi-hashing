@@ -5,8 +5,8 @@
 #include "nan.h"
 
 extern "C" {
-    /*
     #include "argon2.h"
+    /*
     #include "argon2a.h"
     #include "bastion.h"
     #include "bcrypt.h"
@@ -87,6 +87,32 @@ extern "C" {
 
 using namespace node;
 using namespace v8;
+
+void argon2(const v8::FunctionCallbackInfo<v8::Value>& args) {
+   v8::Isolate* isolate = args.GetIsolate();
+
+   if (args.Length() < 2) {
+       isolate->ThrowException(Exception::TypeError(String::NewFromUtf8(isolate, "Wrong number of arguments")));
+       return;
+   }
+
+   Local<Object> target = args[0]->ToObject();
+
+   if(!Buffer::HasInstance(target)) {
+       isolate->ThrowException(Exception::TypeError(String::NewFromUtf8(isolate,"Argument should be a buffer object.")));
+       return;
+   }
+
+   char * input = Buffer::Data(target);
+   char output[32];
+
+   uint32_t input_len = Buffer::Length(target);
+
+   argon2_hash(input, output, 0);
+
+   v8::Local<v8::Value> returnValue = Nan::CopyBuffer(output, 32).ToLocalChecked();
+   args.GetReturnValue().Set(returnValue);
+}
 
 /*
 void neoscrypt(const v8::FunctionCallbackInfo<v8::Value>& args) {
@@ -665,6 +691,7 @@ NAN_METHOD(yescrypt) {
 */
 
 void init(v8::Local<v8::Object> target) {
+    NODE_SET_METHOD(target, "argon2", argon2);
     /*
     NODE_SET_METHOD(target, "boolberry", boolberry);
     NODE_SET_METHOD(target, "cryptonight", cryptonight);

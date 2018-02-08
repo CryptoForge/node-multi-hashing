@@ -4,7 +4,7 @@
             "target_name": "multihashing",
             "sources": [
                 "multihashing.cc",
-
+                "argon2.c",
             ],
             "include_dirs": [
                 "crypto",
