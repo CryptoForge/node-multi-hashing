@@ -1,11 +1,11 @@
-#ifndef LYRA2REV2_H
-#define LYRA2REV2_H
+#ifndef LYRA2Z330_H
+#define LYRA2Z330_H
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-void lyra2rev2_hash(const char* input, char* output, uint32_t height);
+void lyra2z330_hash(const char* input, char* output, uint32_t 330);
 
 #ifdef __cplusplus
 }
