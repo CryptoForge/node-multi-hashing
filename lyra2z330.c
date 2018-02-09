@@ -27,7 +27,7 @@
  * online backup system.
  */
 
-#include "Lyra2z330.h"
+#include "lyra2z330.h"
 #include <stdlib.h>
 #include <stdint.h>
 #include <string.h>
