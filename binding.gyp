@@ -18,6 +18,7 @@
                 "lyra2.c",
                 "lyra2re.c",
                 "lyra2z.c",
+                "lyra2z330.c",
                 "neoscrypt.c",
                 "nist5.c",
                 "quark.c",
