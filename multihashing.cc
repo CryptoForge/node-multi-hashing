@@ -129,7 +129,7 @@ NAN_METHOD(neoscrypt_hash) {
 
     neoscrypt(input, output, 0);
 
-    info.GetReturnValue().Set(Nan::NewBuffer(output, 32).ToLocalChecked());
+    info.GetReturnValue().Set(Nan::NewBuffer((char *) output, 32).ToLocalChecked());
 }
 
 NAN_METHOD(bcrypt) {
