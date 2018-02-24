@@ -122,7 +122,7 @@ NAN_METHOD(neoscrypt_hash) {
 
     if(!Buffer::HasInstance(target))
         return THROW_ERROR_EXCEPTION("Argument should be a buffer object.");
-    unsigned char * input = Buffer::Data(target);
+    unsigned char * input = (unsigned char *) Buffer::Data(target);
     unsigned char output[32];
 
     uint32_t input_len = Buffer::Length(target);
