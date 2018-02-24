@@ -83,8 +83,8 @@ NAN_METHOD(lyra2rev2) {
     if(!Buffer::HasInstance(target))
         return THROW_ERROR_EXCEPTION("Argument should be a buffer object.");
 
-    char * input = Buffer::Data(target);
-    char *output = (char*) malloc(sizeof(char) * 32);
+    unsigned char * input = Buffer::Data(target);
+    unsigned char *output = (char*) malloc(sizeof(char) * 32);
 
     uint32_t input_len = Buffer::Length(target);
 
