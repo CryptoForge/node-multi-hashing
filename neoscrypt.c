@@ -41,8 +41,8 @@ typedef unsigned long long ulong;
 #else
 typedef unsigned long ulong;
 #endif
-typedef int  uint;
-typedef char uchar;
+typedef unsigned int  uint;
+typedef unsigned char uchar;
 typedef unsigned int  bool;
 
 
