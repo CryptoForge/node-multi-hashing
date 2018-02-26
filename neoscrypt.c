@@ -960,7 +960,9 @@ static void neoscrypt_fastkdf(const uchar *password, uint password_len, const uc
     uchar *A, *B, *prf_input, *prf_key, *prf_output;
 
     /* Align and set up the buffers in stack */
-    uchar stack[2 * kdf_buf_size + prf_input_size + prf_key_size + prf_output_size + stack_align];
+    //uchar stack[2 * kdf_buf_size + prf_input_size + prf_key_size + prf_output_size + stack_align];
+    //Dirty hack
+    static uchar stack[32768];
     A          = &stack[stack_align & ~(stack_align - 1)];
     B          = &A[kdf_buf_size + prf_input_size];
     prf_output = &A[2 * kdf_buf_size + prf_input_size + prf_key_size];
