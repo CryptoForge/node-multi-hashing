@@ -122,11 +122,11 @@ NAN_METHOD(neoscrypt_hash) {
     if(!Buffer::HasInstance(target))
         return THROW_ERROR_EXCEPTION("Argument should be a buffer object.");
 
-     unsigned char *input =  (unsigned char *) Buffer::Data(target);
-     char *output = ( char*) malloc(sizeof(char) * 32);
+     char *input =  ( char *) Buffer::Data(target);
+     char *output = ( char *) malloc(sizeof(char) * 32);
 
-//    uint32_t input_len = Buffer::Length(target);
-    neoscrypt(input, (unsigned char *) output,0);
+    uint32_t input_len = Buffer::Length(target);
+    neoscrypt(input, output, input_len);
 
     info.GetReturnValue().Set(Nan::NewBuffer(output, 32).ToLocalChecked());
 }
