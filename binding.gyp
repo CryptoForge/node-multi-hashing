@@ -64,12 +64,7 @@
                 "crypto/hash.c",
                 "crypto/aesb.c",
                 "crypto/wild_keccak.cpp",
-                "yescrypt/sha256_Y.c",
-                "yescrypt/yescrypt-best.c",
-                "yescrypt/yescrypt-opt.c",
-                "yescrypt/yescrypt-platform.c",
-                "yescrypt/yescrypt-simd.c",
-                "yescrypt/yescrypt.c",
+                "yescrypt/yescryptcommon.c",
             ],
             "include_dirs": [
                 "crypto",
